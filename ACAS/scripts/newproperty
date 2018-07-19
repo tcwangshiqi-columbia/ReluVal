@@ -1,0 +1,60 @@
+11:
+float upper[] = {400,0.4,-3.1415926+0.005,400,400};
+float lower[] = {250,0.2,-3.1415926,100,0};
+model:1_5
+check coc is always smaller than strong right
+
+12:
+float upper[] = {60760,3.141592,3.141592, 1200, 60};
+float lower[] = {55947.691,-3.141592,-3.141592,1145,0};
+model:3_3
+check whether coc is the minimal all the time
+
+13:
+float upper[] = {60760,3.141592,3.141592, 360, 360};
+float lower[] = {60000,-3.141592,-3.141592,0,0};
+model:1_1
+check whether coc is the minimal all the time
+
+14:
+float upper[] = {400,0.4,-3.1415926+0.005,400,400};
+float lower[] = {250,0.2,-3.1415926,100,0};
+model:4_1, 5_1
+check whether strong right is the minimal
+
+15:
+float upper[] = {400,-0.2,-3.1415926+0.005,400,400};
+float lower[] = {250,-0.4,-3.1415926,100,0};
+model:4_1, 5_1
+check whether strong right is the minimal
+
+
+100
+float upper[] = {400,0,-3.1415926+0.025,250,200};
+float lower[] = {250,0,-3.1415926+0.025,250,200};
+model:2_1-2_9, 3_1-3_9, 4_1-4_9
+check whether strong right is the minimal
+
+101
+float upper[] = {400,0.4,-3.1415926+0.025,250,200};
+float lower[] = {250,0.2,-3.1415926+0.025,250,200};
+model:2_1-2_9, 3_1-3_9, 4_1-4_9
+check whether strong right is the minimal
+
+102
+float upper[] = {400,0.4,-3.1415926+0.005,400,400};
+float lower[] = {250,0.2,-3.1415926,100,0};
+model:2_1-2_9, 3_1-3_9, 4_1-4_9
+check whether strong right is the minimal
+
+110
+float upper[] = {10000,3.141592,-3.141592+0.01,1200,1200};
+float lower[] = {1000,3.141592,-3.141592+0.01,1200,1200};
+model:all
+check whether strong right is the minimal
+
+111
+float upper[] = {1000,3.141592,-3.141592+0.01,1200,1200};
+float lower[] = {1000,3.141592,-3.141592+0.01,0,1200};
+model:all
+check whether strong right is the minimal

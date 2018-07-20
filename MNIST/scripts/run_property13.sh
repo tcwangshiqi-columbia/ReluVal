@@ -1,1 +1,0 @@
-./network_test 13 ./nnet/ACASXU_run2a_1_1_batch_2000.nnet 0 logs/property13_summary.txt 5 0 0

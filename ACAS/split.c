@@ -88,7 +88,7 @@ int check_min_p7(struct NNet *nnet, struct Interval *output)
                  output->lower_matrix.data[3]) {
                 return 0;
             }
-            
+
         }
 
     }
@@ -833,9 +833,9 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
         else {
             middle = upper;
         }
-
-        // We can set timeout threshold here
+        
         /*
+         * We can set timeout threshold here
         if (depth >= 40) {
             printMatrix(&input->upper_matrix);
             printMatrix(&input->lower_matrix);

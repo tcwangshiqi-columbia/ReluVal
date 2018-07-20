@@ -12,7 +12,10 @@ extern char *LOG_FILE;
 extern FILE *fp;
 
 
-//Neural Network Struct
+/*
+ * Network instance modified from Reluplex
+ * malloc all the memory needed for network
+ */
 struct NNet 
 {
     int symmetric;     //1 if network is symmetric, 0 otherwise

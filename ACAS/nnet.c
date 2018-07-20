@@ -6,8 +6,9 @@ char *LOG_FILE = "logs/log.txt";
 //FILE *fp;
 
 /*
- * Load_network is the function modified from Reluplex
- * It takes in a nnet filename with path and load the network from the file
+ * Load_network is a function modified from Reluplex
+ * It takes in a nnet filename with path and load the 
+ * network from the file
  * Outputs the NNet instance of loaded network.
  */
 struct NNet *load_network(const char* filename, int target)
@@ -93,26 +94,34 @@ struct NNet *load_network(const char* filename, int target)
     nnet->matrix = (float****)malloc(sizeof(float *)*nnet->numLayers);
 
     for (layer = 0;layer<(nnet->numLayers);layer++) {
-        nnet->matrix[layer] = (float***)malloc(sizeof(float *)*2);
-        nnet->matrix[layer][0] = (float**)malloc(sizeof(float *)*nnet->layerSizes[layer+1]);
-        nnet->matrix[layer][1] = (float**)malloc(sizeof(float *)*nnet->layerSizes[layer+1]);
+        nnet->matrix[layer] =\
+                (float***)malloc(sizeof(float *)*2);
+        nnet->matrix[layer][0] =\
+                (float**)malloc(sizeof(float *)*nnet->layerSizes[layer+1]);
+        nnet->matrix[layer][1] =\
+                (float**)malloc(sizeof(float *)*nnet->layerSizes[layer+1]);
 
         for (row = 0;row<nnet->layerSizes[layer+1];row++) {
-            nnet->matrix[layer][0][row] = (float*)malloc(sizeof(float)*nnet->layerSizes[layer]);
+            nnet->matrix[layer][0][row] =\
+                    (float*)malloc(sizeof(float)*nnet->layerSizes[layer]);
             nnet->matrix[layer][1][row] = (float*)malloc(sizeof(float));
         }
+
     }
     
     layer = 0;
     param = 0;
     i=0;
     j=0;
+
     char *tmpptr=NULL;
 
     float w = 0.0;
+
     while ((line = fgets(buffer,bufferSize,fstream)) != NULL) {
 
         if (i >= nnet->layerSizes[layer+1]) {
+
             if (param==0) {
                 param = 1;
             }
@@ -120,6 +129,7 @@ struct NNet *load_network(const char* filename, int target)
                 param = 0;
                 layer++;
             }
+
             i=0;
             j=0;
         }
@@ -147,7 +157,8 @@ struct NNet *load_network(const char* filename, int target)
     for (int layer=0;layer<nnet->numLayers;layer++) {
         weights[layer].row = nnet->layerSizes[layer];
         weights[layer].col = nnet->layerSizes[layer+1];
-        weights[layer].data = (float*)malloc(sizeof(float)*weights[layer].row * weights[layer].col);
+        weights[layer].data = (float*)malloc(sizeof(float)\
+                    * weights[layer].row * weights[layer].col);
 
         int n=0;
 
@@ -156,12 +167,14 @@ struct NNet *load_network(const char* filename, int target)
             /* weights in the last layer minus the weight of true label output. */
             if (layer == nnet->numLayers-1) {
                 orig_bias = nnet->matrix[layer][1][nnet->target][0];
-                memcpy(orig_weights, nnet->matrix[layer][0][nnet->target], sizeof(float)*nnet->maxLayerSize);
+                memcpy(orig_weights, nnet->matrix[layer][0][nnet->target],\
+                            sizeof(float)*nnet->maxLayerSize);
 
                 for (int i=0;i<weights[layer].col;i++) {
 
                     for (int j=0;j<weights[layer].row;j++) {
-                        weights[layer].data[n] = nnet->matrix[layer][0][i][j]-orig_weights[j];
+                        weights[layer].data[n] =\
+                                nnet->matrix[layer][0][i][j]-orig_weights[j];
                         n++;
                     }
 
@@ -188,7 +201,8 @@ struct NNet *load_network(const char* filename, int target)
 
                 bias[layer].col = nnet->layerSizes[layer+1];
                 bias[layer].row = (float)1;
-                bias[layer].data = (float*)malloc(sizeof(float)*bias[layer].col);
+                bias[layer].data = (float*)malloc(sizeof(float) *\
+                                        bias[layer].col);
 
                 for (int i=0;i<bias[layer].col;i++) {
                     bias[layer].data[i] = nnet->matrix[layer][1][i][0];
@@ -230,6 +244,11 @@ struct NNet *load_network(const char* filename, int target)
 }
 
 
+/*
+ * destroy_network is a function modified from Reluplex
+ * It release all the memory mallocated to the network instance
+ * It takes in the instance of nnet
+ */
 void destroy_network(struct NNet *nnet)
 {
 
@@ -274,7 +293,6 @@ void load_inputs(int PROPERTY, int inputSize, float *u, float *l)
     if (PROPERTY == 1) {
         float upper[] = {60760,3.141592,3.141592,1200,60};
         float lower[] = {55947.691,-3.141592,-3.141592,1145,0};
-        
         memcpy(u, upper, sizeof(float)*inputSize);
         memcpy(l, lower, sizeof(float)*inputSize);
     }
@@ -434,7 +452,9 @@ void load_inputs(int PROPERTY, int inputSize, float *u, float *l)
  * It takes in network and input interval.
  * Outputs the estimated output range. 
  */
-int forward_prop_interval(struct NNet *network, struct Interval *input, struct Interval *output)
+int forward_prop_interval(struct NNet *network,\
+                        struct Interval *input,\
+                        struct Interval *output)
 {
 
     int i,j,layer;
@@ -454,6 +474,7 @@ int forward_prop_interval(struct NNet *network, struct Interval *input, struct I
     float z_lower[nnet->maxLayerSize];
     float a_upper[nnet->maxLayerSize];
     float a_lower[nnet->maxLayerSize];
+
     struct Matrix Z_upper = {z_upper, 1, inputSize};
     struct Matrix A_upper = {a_upper, 1, inputSize};
     struct Matrix Z_lower = {z_lower, 1, inputSize};
@@ -881,7 +902,7 @@ int evaluate_interval_equation(struct NNet *network,\
             tempVal_lower += new_equation_lower[i][inputSize];
             tempVal_upper += new_equation_upper[i][inputSize];
 
-            //Perform ReLU
+            /* Perform ReLU */
             if (layer < (numLayers - 1)) {
 
                 if (tempVal_lower < 0.0) {
@@ -1036,7 +1057,7 @@ int forward_prop_interval_equation(struct NNet *network,\
     int R[numLayers][maxLayerSize];
     memset(R, 0, sizeof(float)*numLayers*maxLayerSize);
 
-    // equation is the temp equation for each layer
+    /* equation is the temp equation for each layer */
     float equation_upper[(inputSize+1)*maxLayerSize];
     float equation_lower[(inputSize+1)*maxLayerSize];
     float new_equation_upper[(inputSize+1)*maxLayerSize];
@@ -1064,132 +1085,183 @@ int forward_prop_interval_equation(struct NNet *network,\
     float tempVal_upper=0.0, tempVal_lower=0.0;
     float upper_s_lower=0.0;
 
-    for (i=0; i < nnet->inputSize; i++) {
+    for (i=0;i < nnet->inputSize;i++) {
         equation_lower[i*(inputSize+1)+i] = 1;
         equation_upper[i*(inputSize+1)+i] = 1;
     }
 
-    for (layer = 0; layer<(numLayers); layer++) {
-        for(i=0;i<maxLayerSize;i++){
+    for (layer=0;layer<(numLayers);layer++) {
+
+        for (i=0;i<maxLayerSize;i++) {
             memset(new_equation_upper, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
             memset(new_equation_lower, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
         }
 
         struct Matrix weights = nnet->weights[layer];
         struct Matrix bias = nnet->bias[layer];
+
         float p[weights.col*weights.row];
         float n[weights.col*weights.row];
+
         memset(p, 0, sizeof(float)*weights.col*weights.row);
         memset(n, 0, sizeof(float)*weights.col*weights.row);
+
         struct Matrix pos_weights = {p, weights.row, weights.col};
         struct Matrix neg_weights = {n, weights.row, weights.col};
-        for(i=0;i<weights.row*weights.col;i++){
-            if(weights.data[i]>=0){
+
+        for (i=0;i<weights.row*weights.col;i++) {
+
+            if(weights.data[i] >= 0){
                 p[i] = weights.data[i];
             }
             else{
                 n[i] = weights.data[i];
             }
+
         }
 
-        matmul(&equation_inteval.upper_matrix, &pos_weights, &new_equation_inteval.upper_matrix);
-        matmul_with_bias(&equation_inteval.lower_matrix, &neg_weights, &new_equation_inteval.upper_matrix);
+        matmul(&equation_inteval.upper_matrix, &pos_weights,\
+                        &new_equation_inteval.upper_matrix);
+        matmul_with_bias(&equation_inteval.lower_matrix, &neg_weights,\
+                        &new_equation_inteval.upper_matrix);
 
-        matmul(&equation_inteval.lower_matrix, &pos_weights, &new_equation_inteval.lower_matrix);
-        matmul_with_bias(&equation_inteval.upper_matrix, &neg_weights, &new_equation_inteval.lower_matrix);
+        matmul(&equation_inteval.lower_matrix, &pos_weights,\
+                        &new_equation_inteval.lower_matrix);
+        matmul_with_bias(&equation_inteval.upper_matrix, &neg_weights,\
+                        &new_equation_inteval.lower_matrix);
         
         for (i=0; i < nnet->layerSizes[layer+1]; i++)
         {
             tempVal_upper = tempVal_lower = 0.0;
 
-            if(NEED_OUTWARD_ROUND){
+            if (NEED_OUTWARD_ROUND) {
+
                 for(k=0;k<inputSize;k++){
-                    if(new_equation_lower[k+i*(inputSize+1)]>=0){
-                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k]-OUTWARD_ROUND;
+
+                    if (new_equation_lower[k+i*(inputSize+1)] >= 0) {
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] *\
+                                    input->lower_matrix.data[k] - OUTWARD_ROUND;
                     }
-                    else{
-                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k]-OUTWARD_ROUND;
+                    else {
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] *\
+                                    input->upper_matrix.data[k] - OUTWARD_ROUND;
                     }
-                    if(new_equation_upper[k+i*(inputSize+1)]>=0){
-                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k]+OUTWARD_ROUND;
-                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k]+OUTWARD_ROUND;
+
+                    if (new_equation_upper[k+i*(inputSize+1)] >= 0) {
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->upper_matrix.data[k] + OUTWARD_ROUND;
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->lower_matrix.data[k] + OUTWARD_ROUND;
                     }
-                    else{
-                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k]+OUTWARD_ROUND;
-                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k]+OUTWARD_ROUND;
-                    }  
+                    else {
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->lower_matrix.data[k] + OUTWARD_ROUND;
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->upper_matrix.data[k] + OUTWARD_ROUND;
+                    }
+
                 }
+
             }
-            else{
-                for(k=0;k<inputSize;k++){
-                    if(new_equation_lower[k+i*(inputSize+1)]>=0){
-                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k];
+            else {
+
+                for (k=0;k<inputSize;k++) {
+
+                    if (new_equation_lower[k+i*(inputSize+1)] >= 0) {
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] *\
+                                    input->lower_matrix.data[k];
                     }
-                    else{
-                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+                    else {
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] *\
+                                    input->upper_matrix.data[k];
                     }
-                    if(new_equation_upper[k+i*(inputSize+1)]>=0){
-                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+
+                    if (new_equation_upper[k+i*(inputSize+1)] >= 0) {
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->upper_matrix.data[k];
                     }
-                    else{
-                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k];
-                    }  
+                    else {
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] *\
+                                    input->lower_matrix.data[k];
+                    }
+
                 }
+
             }
             
             new_equation_lower[inputSize+i*(inputSize+1)] += bias.data[i];
             new_equation_upper[inputSize+i*(inputSize+1)] += bias.data[i];
+
             tempVal_lower += new_equation_lower[inputSize+i*(inputSize+1)];
             tempVal_upper += new_equation_upper[inputSize+i*(inputSize+1)];
             upper_s_lower += new_equation_upper[inputSize+i*(inputSize+1)];
 
-            //Perform ReLU
-            if(layer<(numLayers-1)){
-                if (tempVal_upper<=0.0){
+            /* Perform ReLU */
+            if (layer < (numLayers - 1)) {
+
+                if (tempVal_upper <= 0.0) {
                     tempVal_upper = 0.0;
+
                     for(k=0;k<inputSize+1;k++){
                         new_equation_upper[k+i*(inputSize+1)] = 0;
                         new_equation_lower[k+i*(inputSize+1)] = 0;
                     }
+
                     R[layer][i] = 0;
                 }
-                else if(tempVal_lower>=0.0){
+                else if (tempVal_lower >= 0.0) {
                     R[layer][i] = 2;
                 }
-                else{
+                else {
                     tempVal_lower = 0.0;
                     //printf("wrong node: ");
-                    if(upper_s_lower>=0.0){
+
+                    if (upper_s_lower >= 0.0) {
                         //printf("upper's lower >= 0\n");
-                        for(k=0;k<inputSize+1;k++){
+
+                        for (k=0;k<inputSize+1;k++) {
                             new_equation_lower[k+i*(inputSize+1)] = 0;
                         }
+
                     }
-                    else{
+                    else {
                         //printf("upper's lower <= 0\n");
-                        for(k=0;k<inputSize+1;k++){
+
+                        for (k=0;k<inputSize+1;k++) {
                             new_equation_lower[k+i*(inputSize+1)] = 0;
                             new_equation_upper[k+i*(inputSize+1)] = 0;
                         }
-                        new_equation_upper[inputSize+i*(inputSize+1)] = tempVal_upper;
+
+                        new_equation_upper[inputSize+i*(inputSize+1)] =\
+                                    tempVal_upper;
                         //new_equation_upper[inputSize+i*(inputSize+1)] -= upper_s_lower;
                     }
+
                     R[layer][i] = 1;
                 }
+
             }
-            else{
+            else {
                 output->upper_matrix.data[i] = tempVal_upper;
                 output->lower_matrix.data[i] = tempVal_lower;
             }
+
         }
+
         //printf("\n");
-        memcpy(equation_upper, new_equation_upper, sizeof(float)*(inputSize+1)*maxLayerSize);
-        memcpy(equation_lower, new_equation_lower, sizeof(float)*(inputSize+1)*maxLayerSize);
-        equation_inteval.lower_matrix.row = equation_inteval.upper_matrix.row =  new_equation_inteval.lower_matrix.row;
-        equation_inteval.lower_matrix.col = equation_inteval.upper_matrix.col =  new_equation_inteval.lower_matrix.col;
+        memcpy(equation_upper, new_equation_upper,\
+                sizeof(float)*(inputSize+1)*maxLayerSize);
+        memcpy(equation_lower, new_equation_lower,\
+                sizeof(float)*(inputSize+1)*maxLayerSize);
+
+        equation_inteval.lower_matrix.row = equation_inteval.upper_matrix.row\
+                    =  new_equation_inteval.lower_matrix.row;
+        equation_inteval.lower_matrix.col = equation_inteval.upper_matrix.col\
+                    = new_equation_inteval.lower_matrix.col;
     }
 
     backward_prop(nnet, grad, R);
 
     return 1;
+
 }

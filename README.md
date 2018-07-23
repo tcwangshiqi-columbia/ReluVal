@@ -61,7 +61,7 @@ Here is an example for running ReluVal:
 
 ### Properties
 
-The ACAS Xu properties reported in the paper are defined in the Appendix A and in the file properties. One can easily create own properties with following three steps: (1) creating new models in the same style as ones in folder nnet, (2) adding new bounded input ranges in function load_inputs in file nnet.c, and (3) adding check function of the property in function check_functions and check_functions1 in file split.c. 
+The ACAS Xu properties reported in the paper are defined in the Appendix A and in the file "properties". One can easily create own properties with following three steps: (1) creating new models in the same style as ones in folder "nnet", (2) adding new bounded input ranges in function load_inputs in file "nnet.c", and (3) adding check function of the property in function check_functions and check_functions1 in file "split.c". 
 
 ### ACAS Xu experiments
 

@@ -91,7 +91,7 @@ The test on ACAS Xu can be easily ran with pre-written scripts in folder "script
 
 * [Shiqi Wang](https://sites.google.com/view/tcwangshiqi) - tcwangshiqi@cs.columbia.edu
 * [Kexin Pei](https://sites.google.com/site/kexinpeisite/) - kpei@cs.columbia.edu
-* Justin Whitehouse 
+* [Justin Whitehouse](https://www.college.columbia.edu/node/11475) - jaw2228@columbia.edu
 * [Junfeng Yang](http://www.cs.columbia.edu/~junfeng/) - junfeng@cs.columbia.edu
 * [Suman Jana](http://www.cs.columbia.edu/~suman/) - suman@cs.columbia.edu
 

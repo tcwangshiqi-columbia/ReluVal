@@ -1,6 +1,6 @@
 /*
  -----------------------------------------------------------------
- ** Top contributors (to current version):
+ ** Top contributors:
  **   Shiqi Wang and Suman Jana
  ** This file is part of the ReluVal project.
  ** Copyright (c) 2018-2019 by the authors listed in the file copyright

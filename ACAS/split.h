@@ -1,3 +1,14 @@
+/*
+ ------------------------------------------------------------------
+ ** Top contributors (to current version):
+ **   Shiqi Wang and Suman Jana
+ ** This file is part of the ReluVal project.
+ ** Copyright (c) 2018-2019 by the authors listed in the file copyright
+ ** and their institutional affiliations.
+ ** All rights reserved.
+ -----------------------------------------------------------------
+ */
+
 #include <pthread.h>
 #include <sys/types.h>
 #include <sys/syscall.h>
@@ -10,14 +21,12 @@
 #ifndef SPLIT_H
 #define SPLIT_H
 
+
 /* Print detailed progress */
 extern int NEED_PRINT;
 
 /* No bisection mode */
 extern int NEED_FOR_ONE_RUN;
-
-/* Bisection tree depth */
-extern int input_depth;
 
 /* set 1 if a concrete adversarial example is
 found */

@@ -1,117 +1,231 @@
+/*
+ -----------------------------------------------------------------
+ ** Top contributors (to current version):
+ **   Shiqi Wang and Suman Jana
+ ** This file is part of the ReluVal project.
+ ** Copyright (c) 2018-2019 by the authors listed in the file copyright
+ ** and their institutional affiliations.
+ ** All rights reserved.
+ -----------------------------------------------------------------
+ */
+
 #include "matrix.h"
 
-void matmul_with_factor(struct Matrix* A, struct Matrix* B, struct Matrix* C, 
-						float alpha, float beta) {
+
+/*
+ * matrix multiplication with factor
+ * Takes in targeted Matrix A and Matrix B
+ * and factors alpha and beta
+ * Stores the output in Matrix C
+ */
+void matmul_with_factor(struct Matrix* A,\
+                        struct Matrix* B,\
+                        struct Matrix* C,\
+						float alpha,\
+                        float beta)
+{
+
 	int m = A->row;
     int k = A->col;
     int n = B->col;
-	cblas_sgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, m, 
-						n, k, alpha, A->data, m, B->data, k, beta, C->data, m);
+	cblas_sgemm(CblasColMajor,\
+                CblasNoTrans,\
+                CblasNoTrans,\
+                m, n, k, alpha,\
+                A->data, m, B->data,\
+                k, beta, C->data, m);
+
 }
 
-void add_constant(struct Matrix* A, float alpha){
+
+/*
+ * Add the targeted matrix with a bias vector
+ * Takes in targeted Matrix A and bias vector alpha
+ * Stores the output A+alpha in A
+ */
+void add_constant(struct Matrix* A, float alpha)
+{
+
 	int m = A->row;
     int k = A->col;
-	for(int i=0;i<m*k;i++){
+
+	for (int i=0;i<m*k;i++) {
 		A->data[i] += alpha;
 	}
+
 }
 
-void matmul_with_bias(struct Matrix* A, struct Matrix* B, struct Matrix* C)
+
+
+/*
+ * Matrix multiplication C = AB+C
+ * Takes in Matrix A and Matrix B and
+ * store AB+C in Matrix C 
+ */
+void matmul_with_bias(struct Matrix* A,\
+                     struct Matrix* B,\
+                     struct Matrix* C)
 {
-    //cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, \
-                        n, k, alpha, A, k, B, n, beta, C, n);
+    //cblas_dgemm(CblasRowMajor,\
+                  CblasNoTrans,\
+                  CblasNoTrans,\
+                  m, n, k,\
+                  alpha, A, k, B,\
+                  n, beta, C, n);
+
     int m = A->row;
     int k = A->col;
     int n = B->col;
+
     C->row = A->row;
     C->col = B->col;
-    cblas_sgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, m, 
-                        n, k, 1, A->data, m, B->data, k, 1, C->data, m);
+
+    cblas_sgemm(CblasColMajor,\
+                CblasNoTrans,\
+                CblasNoTrans,
+                m, n, k, 1,\
+                A->data, m, B->data,\
+                k, 1, C->data, m);
 }
 
-void matmul(struct Matrix* A, struct Matrix* B, struct Matrix* C)
+
+/*
+ * Matrix multiplication C = AB
+ * Takes in Matrix A and Matrix B and store AB in Matrix C 
+ */
+void matmul(struct Matrix* A,\
+            struct Matrix* B,\
+            struct Matrix* C)
 {
-    //cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, \
-    					n, k, alpha, A, k, B, n, beta, C, n);
+    //cblas_dgemm(CblasRowMajor,\
+                  CblasNoTrans,\
+                  CblasNoTrans,\
+                  m, n, k,\
+                  alpha, A, k, B,\
+                  n, beta, C, n);
+
     int m = A->row;
     int k = A->col;
     int n = B->col;
+
     C->row = A->row;
     C->col = B->col;
-    cblas_sgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, m, 
-    					n, k, 1, A->data, m, B->data, k, 0, C->data, m);
+
+    cblas_sgemm(CblasColMajor,\
+                CblasNoTrans,\
+                CblasNoTrans,\
+                m, n, k, 1,\
+                A->data, m, B->data,\
+                k, 0, C->data, m);
 }
 
-void multiply(struct Matrix* A, struct Matrix* B){
-    for(int i=0;i<A->row*A->col;i++){
-        A->data[i] = A->data[i]*B->data[i];
+
+
+/*
+ * Element-wise matrix multiplication
+ * Take in the two targeted matrix, which should have same shape
+ */
+void multiply(struct Matrix* A, struct Matrix* B)
+{
+
+    for (int i=0;i<A->row*A->col;i++) {
+        A->data[i] = A->data[i] * B->data[i];
     }
+
 }
 
-void *multiply_args(void *args){
-    compute_multiply *actual_args = args;
-    for(int i=0;i<10000000;i++){
-        multiply(actual_args->A, actual_args->B);
-    }
-}
 
-void relu(struct Matrix* A){
-    for(int i=0;i<A->col*A->row;i++){
-        if(A->data[i]<0){
+/*
+ * Take the relu of targeted matrix
+ * Take in the targeted matrix
+ */
+void relu(struct Matrix* A)
+{
+
+    for (int i=0;i<A->col*A->row;i++) {
+
+        if (A->data[i] < 0) {
             A->data[i] = 0;
         }
+
     }
+
 }
 
-void printMatrix(struct Matrix* A){
+
+/*
+ * Print the matrix
+ * Take in the targed matrix
+ */
+void printMatrix(struct Matrix* A)
+{
+
     //printf("%d %d\n", A->row, A->col);
 
-    if(A->col==1){
+    if (A->col == 1) {
         printf("[");
-        for(int i=0;i<A->row;i++){
+
+        for (int i=0;i<A->row;i++) {
             printf("%f ", A->data[i]);
         }
+
         printf("]\n");
         return;
     }
-    if(A->row==1){
+
+    if (A->row == 1) {
         printf("[");
-        for(int i=0;i<A->col;i++){
+
+        for (int i=0;i<A->col;i++) {
             printf("%f ", A->data[i]);
         }
+
         printf("]\n");
         return;
     }
+
     printf("[" );
-    for(int i=0;i<A->col;i++){
+
+    for (int i=0;i<A->col;i++) {
         printf("[");
+
         for(int j=0;j<A->row;j++){
             printf("%f ",A->data[A->row*i+j]);
         }
-        if(i==A->col-1){
+
+        if (i == A->col-1) {
             printf("]");
         }
-        else{
+        else {
             printf("]\n");
         }
         
     }
+
     printf("]\n");
+
 }
 
+
+/*
+ * Print the Matrix in file
+ * Take in the file and the targeted matrix
+ */
 void fprintMatrix(FILE *fp, struct Matrix* A){
     //printf("%d %d\n", A->row, A->col);
 
-    if(A->col==1){
+    if (A->col == 1) {
         fprintf(fp, "[");
-        for(int i=0;i<A->row;i++){
+
+        for (int i=0;i<A->row;i++) {
             fprintf(fp, "%f ", A->data[i]);
         }
+
         fprintf(fp, "]\n");
         return;
     }
-    if(A->row==1){
+
+    if (A->row == 1) {
         fprintf(fp, "[");
         for(int i=0;i<A->col;i++){
             fprintf(fp, "%f ", A->data[i]);
@@ -119,19 +233,25 @@ void fprintMatrix(FILE *fp, struct Matrix* A){
         fprintf(fp, "]\n");
         return;
     }
+
     fprintf(fp, "[" );
-    for(int i=0;i<A->col;i++){
+
+    for (int i=0;i<A->col;i++) {
         fprintf(fp, "[");
+
         for(int j=0;j<A->row;j++){
             fprintf(fp, "%f ",A->data[A->row*i+j]);
         }
-        if(i==A->col-1){
+
+        if (i == A->col-1) {
             fprintf(fp,"]");
         }
-        else{
+        else {
             fprintf(fp, "]\n");
         }
         
     }
+
     fprintf(fp, "]\n");
+
 }

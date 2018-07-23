@@ -1,9 +1,21 @@
+/*
+ ------------------------------------------------------------------
+ ** Top contributors (to current version):
+ **   Shiqi Wang and Suman Jana
+ ** This file is part of the ReluVal project.
+ ** Copyright (c) 2018-2019 by the authors listed in the file copyright
+ ** and their institutional affiliations.
+ ** All rights reserved.
+ -----------------------------------------------------------------
+ */
+
+
 #include "nnet.h"
 
 
 int PROPERTY = 5;
 char *LOG_FILE = "logs/log.txt";
-//FILE *fp;
+FILE *fp;
 
 /*
  * Load_network is a function modified from Reluplex
@@ -164,7 +176,7 @@ struct NNet *load_network(const char* filename, int target)
 
         if (PROPERTY != 1) {
 
-            /* weights in the last layer minus the weight of true label output. */
+            /* weights in the last layer minus the weights of true label output. */
             if (layer == nnet->numLayers-1) {
                 orig_bias = nnet->matrix[layer][1][nnet->target][0];
                 memcpy(orig_weights, nnet->matrix[layer][0][nnet->target],\

@@ -1,3 +1,14 @@
+/*
+ -----------------------------------------------------------------
+ ** Top contributors (to current version):
+ **   Shiqi Wang and Suman Jana
+ ** This file is part of the ReluVal project.
+ ** Copyright (c) 2018-2019 by the authors listed in the file copyright
+ ** and their institutional affiliations.
+ ** All rights reserved.
+ -----------------------------------------------------------------
+ */
+
 #include "split.h"
 
 #define AVG_WINDOW 5
@@ -892,11 +903,6 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
     
     pthread_mutex_lock(&lock);
-
-    //if (depth <= input_depth ||\
-            ((count <= pow(2,(input_depth+1)) -\
-            2 - pow(2,(input_depth - 1))) &&\
-            depth <= avg[0]-7)) {
 
     if ((depth <= avg_depth - MIN_DEPTH_PER_THREAD) &&\
             (count<=MAX_THREAD)) {

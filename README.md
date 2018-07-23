@@ -1,5 +1,7 @@
 # ReluVal(Usenix Security'18)
-ReluVal is a system for formally analyzing self-defined properties on given neural networks by leveraging symbolic interval analysis and iterative refinement. You can find detailed description of ReluVal in paper [Formal Security Analysis of Neural Networks using Symbolic Intervals](https://arxiv.org/pdf/1804.10829.pdf).
+ReluVal is a system for formally analyzing self-defined properties on given neural networks by leveraging symbolic interval analysis and iterative refinement.
+
+You can find detailed description of ReluVal in paper [Formal Security Analysis of Neural Networks using Symbolic Intervals](https://arxiv.org/pdf/1804.10829.pdf).
 
 This repository contains the implementation of ReluVal and the evalutions on ACAS Xu described in the paper.
 
@@ -7,8 +9,8 @@ This repository contains the implementation of ReluVal and the evalutions on ACA
 ## Prerequisite
 
 
-### Openblas Installation
-Openblas library is used for matrix multiplication speedup. So please make sure you have successfully installed [Openblas](https://www.openblas.net/). You can follow following commands to install openblas or find the quick installation at [Openblas's Installation Guide](https://github.com/xianyi/OpenBLAS/wiki/Installation-Guide).
+### OpenBLAS Installation
+OpenBLAS library is used for matrix multiplication speedup. So please make sure you have successfully installed [OpenBLAS](https://www.openblas.net/). You can follow following commands to install openblas or find the quick installation guide at [OpenBLAS's Installation Guide](https://github.com/xianyi/OpenBLAS/wiki/Installation-Guide).
 
 ```
 wget http://github.com/xianyi/OpenBLAS/archive/v0.2.20.tar.gz
@@ -48,9 +50,7 @@ test for one run = 0: whether need to estimate the output range without split re
 
 check mode = 0: Normal split mode is 0. Check adv mode is 1. Check adv mode will prevent further splits as long as the depth goes upper than 20 so as to locate concrete adversarial examples faster. Default value is 0.
 
-The program will terminate in two ways:
-(1) a concrete adversarial is found.
-(2) the property is verified as safe.
+The program will terminate in two ways: (1) a concrete adversarial is found, and (2) the property is verified as safe.
 
 ### Example
 
@@ -62,7 +62,7 @@ Here is an example for running ReluVal:
 
 ### ACAS Xu experiments:
 
-The evaluations on ACAS Xu can be easily ran with pre-written scripts in folder "scripts". Here is an example:S
+The evaluations on ACAS Xu can be easily ran with pre-written scripts in folder "scripts". Here is an example:
 
 ```
 ./scripts/run_property5.sh
@@ -73,13 +73,13 @@ The evaluations on ACAS Xu can be easily ran with pre-written scripts in folder 
 
 ```
 @inproceedings {Shiqi18,
-author = {Shiqi Wang and Kexin Pei and Justin Whitehouse and Junfeng Yang and Suman Jana},
-title = {Formal Security Analysis of Neural Networks using Symbolic Intervals},
-booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},
-year = {2018},
-address = {Baltimore, MD},
-url = {https://www.usenix.org/conference/usenixsecurity18/presentation/wang-shiqi},
-publisher = {{USENIX} Association},
+	author = {Shiqi Wang and Kexin Pei and Justin Whitehouse and Junfeng Yang and Suman Jana},
+	title = {Formal Security Analysis of Neural Networks using Symbolic Intervals},
+	booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},
+	year = {2018},
+	address = {Baltimore, MD},
+	url = {https://www.usenix.org/conference/usenixsecurity18/presentation/wang-shiqi},
+	publisher = {{USENIX} Association},
 }
 ```
 

@@ -1,27 +1,27 @@
-./network_test 102 ./nnet/ACASXU_run2a_2_1_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_2_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_3_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_4_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_5_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_6_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_7_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_8_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_2_9_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_1_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_2_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_3_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_4_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_5_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_6_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_7_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_8_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_3_9_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_1_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_2_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_3_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_4_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_5_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_6_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_7_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_8_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
-./network_test 102 ./nnet/ACASXU_run2a_4_9_batch_2000.nnet 4 logs/property5_summary.txt 5 0 0
+./network_test 102 ./nnet/ACASXU_run2a_2_1_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_2_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_3_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_4_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_5_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_6_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_7_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_8_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_2_9_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_1_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_2_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_3_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_4_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_5_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_6_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_7_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_8_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_3_9_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_1_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_2_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_3_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_4_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_5_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_6_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_7_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_8_batch_2000.nnet 4
+./network_test 102 ./nnet/ACASXU_run2a_4_9_batch_2000.nnet 4

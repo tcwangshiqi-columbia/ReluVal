@@ -179,7 +179,7 @@ int main( int argc, char *argv[])
 
     printf("running property %d with network %s\n",\
                 PROPERTY, FULL_NET_PATH);
-    printf("inputs:\n");
+    printf("input ranges:\n");
 
     printMatrix(&input_upper);
     printMatrix(&input_lower);
@@ -210,16 +210,16 @@ int main( int argc, char *argv[])
         }
     }
 
-    evaluate(nnet, &input_t, &output);
+    //evaluate(nnet, &input_t, &output);
     //forward_prop(nnet, &input_t,&output);
-    printMatrix(&output);
+    //printMatrix(&output);
     
     gettimeofday(&start, NULL);
     int isOverlap = 0;
     float avg[100] = {0};
 
     if (CHECK_ADV_MODE) {
-        printf("CHECK_ADV_MODE\n");
+        printf("check mode: CHECK_ADV_MODE\n");
         isOverlap = direct_run_check(nnet,\
                 &input_interval, &output_interval,\
                 &grad_interval, depth, feature_range,\
@@ -227,7 +227,7 @@ int main( int argc, char *argv[])
     
     }
     else {
-        printf("No CHECK_ADV_MODE\n");
+        printf("check mode: No CHECK_ADV_MODE\n");
 
         for (int i=0;i<1;i++) {
             //forward_prop_interval_equation(nnet,\

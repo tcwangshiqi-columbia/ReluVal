@@ -1,1 +1,1 @@
-./network_test 8 ./nnet/ACASXU_run2a_2_9_batch_2000.nnet 1 logs/property5_summary.txt 7 0 0 1
+./network_test 8 ./nnet/ACASXU_run2a_2_9_batch_2000.nnet 1 0 0 1

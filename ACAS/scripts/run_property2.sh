@@ -35,6 +35,6 @@
 ./network_test 2 ./nnet/ACASXU_run2a_5_8_batch_2000.nnet 0 0 0
 ./network_test 2 ./nnet/ACASXU_run2a_5_9_batch_2000.nnet 0 0 0
 
-./network_test 2 ./nnet/ACASXU_run2a_3_3_batch_2000.nnet 0 0 0
-./network_test 2 ./nnet/ACASXU_run2a_4_2_batch_2000.nnet 0 0 0
-./network_test 2 ./nnet/ACASXU_run2a_5_3_batch_2000.nnet 0 0 0
+./network_test 2 ./nnet/ACASXU_run2a_3_3_batch_2000.nnet 0 0 0 1
+#./network_test 2 ./nnet/ACASXU_run2a_4_2_batch_2000.nnet 0 0 0
+#./network_test 2 ./nnet/ACASXU_run2a_5_3_batch_2000.nnet 0 0 0

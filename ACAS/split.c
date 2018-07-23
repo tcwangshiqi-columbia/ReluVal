@@ -845,14 +845,12 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
             middle = upper;
         }
         
-        /*
-         * We can set timeout threshold here
-        if (depth >= 40) {
-            printMatrix(&input->upper_matrix);
-            printMatrix(&input->lower_matrix);
-        }
-         */
-
+        
+        //if (depth >= 40) {
+            //printMatrix(&input->upper_matrix);
+            //printMatrix(&input->lower_matrix);
+        //}
+        
         if (smear_sum <= 0.02) {
             //printf("tighten:  smear_sum: %f  depth:%d  output:", smear_sum, depth);
 
@@ -874,7 +872,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
         if (CHECK_ADV_MODE) {
 
-            if (depth >= 20 || upper-middle <= ADV_THRESHOLD) {
+            if (depth >= 25 || upper-middle <= ADV_THRESHOLD) {
                 check_adv(nnet, input);
                 return 0;
             }

@@ -36,11 +36,11 @@ make
 ## File Structure
 
 * network_test.c: main file to run with
-* nnet.c: deal with network and do symbolic interval analysis
+* nnet.c: deal with network instance and do symbolic interval analysis
 * split.c: manage iterative refinement and dynamic thread rebalancing
-* matrix.c: matrix operation supported by OpenBLAS
-* nnet/: network of ACAS Xu models
-* scripts/: scripts to run the ACAS Xu evaluations 
+* matrix.c: matrix operations supported by OpenBLAS
+* nnet/: ACAS Xu models
+* scripts/: scripts to run the ACAS Xu evaluations reported in paper 
 
 ## Running 
 

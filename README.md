@@ -41,13 +41,13 @@ property: the saftety property want to verify
 
 network: the network want to test with
 
-target: Wanted label of the property
+target: wanted label of the property
 
 need to print = 0: whether need to print the detailed information of each split. 0 is not and 1 is yes. Default value is 0.
 
 test for one run = 0: whether need to estimate the output range without split refinement. 0 is no, 1 is yes. Default value is 0.
 
-check mode = 0: Normal split mode is 0. Check adv mode is 1. Check adv mode will prevent further splits as long as the depth goes upper than 20 so as to locate concrete adversarial examples faster. Default value is 0.
+check mode = 0: choose the mode of formal anlysis. Normal split and check mode is 0. Check adv mode is 1. Check adv mode will prevent further splits as long as the bisection depth goes upper than 20 so as to locate concrete adversarial examples faster. Default value is 0.
 
 The program will terminate in two ways: (1) a concrete adversarial is found, and (2) the property is verified as safe.
 

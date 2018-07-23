@@ -33,6 +33,15 @@ Please make sure the path of OpenBLAS is the same as the one in MakeFile. Then y
 make
 ```
 
+## File Structure
+
+* network_test.c: main file to run with
+* nnet.c: deal with network and do symbolic interval analysis
+* split.c: manage iterative refinement and dynamic thread rebalancing
+* matrix.c: matrix operation supported by OpenBLAS
+* nnet/: network of ACAS Xu models
+* scripts/: scripts to run the ACAS Xu evaluations 
+
 ## Running 
 
 The main function is in network_test.c. To run the function, you can call the binary ./network_test. It expects at least three arguments. Here is the argument list:

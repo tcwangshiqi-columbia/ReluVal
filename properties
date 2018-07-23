@@ -13,151 +13,157 @@
 
 Original 10 properties in Reluplex
 1:
-float upper[] = {60760,3.141592,3.141592,1200,60};
-float lower[] = {55947.691,-3.141592,-3.141592,1145,0};
+upper = {60760,3.141592,3.141592,1200,60};
+lower = {55947.691,-3.141592,-3.141592,1145,0};
 model: all
 desired output: COC is at most 1500 before normalization
 
 
 2:
-float upper[] = {60760,3.141592,3.141592, 1200, 60};
-float lower[] = {55947.691,-3.141592,-3.141592,1145,0};
+upper = {60760,3.141592,3.141592, 1200, 60};
+lower = {55947.691,-3.141592,-3.141592,1145,0};
 model: all
 desired output: COC is not the maximal
 
 
 3:
-float upper[] = {1800,0.06,3.141592,1200,1200};
-float lower[] = {1500,-0.06,3.10,980,960};
+upper = {1800,0.06,3.141592,1200,1200};
+lower = {1500,-0.06,3.10,980,960};
 model: all except 1_7, 1_8, 1_9
 desired output: COC is not the minimal
 
 
 4:
-float upper[] = {1800,0.06,0,1200,800};
-float lower[] = {1500,-0.06,0,1000,700};
+upper = {1800,0.06,0,1200,800};
+lower = {1500,-0.06,0,1000,700};
 model: all except 1_7, 1_8, 1_9
 desired output: COC is not the minimal
 
 
 5:
-float upper[] = {400,0.4,-3.1415926+0.005,400,400};
-float lower[] = {250,0.2,-3.1415926,100,0};
+upper = {400,0.4,-3.1415926+0.005,400,400};
+lower = {250,0.2,-3.1415926,100,0};
 model: 1_1
 desired output: strong right is always the minimal
 
 
 16(first part of property 6):
-float upper[] = {62000,-0.7,-3.141592+0.005,200,1200};
-float lower[] = {12000,-3.141592,-3.141592,100,0};
+upper = {62000,-0.7,-3.141592+0.005,200,1200};
+lower = {12000,-3.141592,-3.141592,100,0};
 model: 1_1
 desired output: COC is the minimal
 
 
 26(second part of property 6):
-float upper[] = {62000,3.141592,-3.141592+0.005,200,1200};
-float lower[] = {12000,0.7,-3.141592,100,0};
+upper = {62000,3.141592,-3.141592+0.005,200,1200};
+lower = {12000,0.7,-3.141592,100,0};
 model: 1_1
 desired output: COC is the minimal
 
 
 7:
-float upper[] = {60760,3.141592,3.141592,1200,1200};
-float lower[] = {0,-3.141592,-3.141592,100,0};
+upper = {60760,3.141592,3.141592,1200,1200};
+lower = {0,-3.141592,-3.141592,100,0};
 model: 1_9
 desired output: strong left and strong right are not the minimal
 
 
 8:
-float upper[] = {60760,-3.141592*0.75,0.1,1200,1200};
-float lower[] = {0,-3.141592,-0.1,600,600};
+upper = {60760,-3.141592*0.75,0.1,1200,1200};
+lower = {0,-3.141592,-0.1,600,600};
 model: 2_9
 desired output: weak left or COC is the minimal
 
 
 
 9:
-float upper[] = {7000,-0.14,-3.141592+0.01,150,150};
-float lower[] = {2000,-0.4,-3.141592,100,0};
+upper = {7000,-0.14,-3.141592+0.01,150,150};
+lower = {2000,-0.4,-3.141592,100,0};
 model: 3_3
 desired output: strong left is the minimal
 
 
 10:
-float upper[] = {60760,3.141592,-3.141592+0.01,1200,1200};
-float lower[] = {36000,0.7,-3.141592,900,600};
+upper = {60760,3.141592,-3.141592+0.01,1200,1200};
+lower = {36000,0.7,-3.141592,900,600};
 model: 4_5
 desired output: COC is the minimal
 
 
-Our 5 additional properties:
+5 additional properties reported in paper:
 11:
-float upper[] = {400,0.4,-3.1415926+0.005,400,400};
-float lower[] = {250,0.2,-3.1415926,100,0};
+upper = {400,0.4,-3.1415926+0.005,400,400};
+lower = {250,0.2,-3.1415926,100,0};
 model:1_5
 desired output: COC is always smaller than strong right
 
 
 12:
-float upper[] = {60760,3.141592,3.141592, 1200, 60};
-float lower[] = {55947.691,-3.141592,-3.141592,1145,0};
+upper = {60760,3.141592,3.141592, 1200, 60};
+lower = {55947.691,-3.141592,-3.141592,1145,0};
 model:3_3
 desired output: COC is the minimal
 
 
 13:
-float upper[] = {60760,3.141592,3.141592, 360, 360};
-float lower[] = {60000,-3.141592,-3.141592,0,0};
+upper = {60760,3.141592,3.141592, 360, 360};
+lower = {60000,-3.141592,-3.141592,0,0};
 model:1_1
 desired output: COC is the minimal
 
 
 14:
-float upper[] = {400,0.4,-3.1415926+0.005,400,400};
-float lower[] = {250,0.2,-3.1415926,100,0};
+upper = {400,0.4,-3.1415926+0.005,400,400};
+lower = {250,0.2,-3.1415926,100,0};
 model:4_1, 5_1
 desired output: strong right is the minimal
 
 
 15:
-float upper[] = {400,-0.2,-3.1415926+0.005,400,400};
-float lower[] = {250,-0.4,-3.1415926,100,0};
+upper = {400,-0.2,-3.1415926+0.005,400,400};
+lower = {250,-0.4,-3.1415926,100,0};
 model:4_1, 5_1
 desired output: strong right is the minimal
 
 
-Additional 5 properties for evaluating the feature of 
-narrowing down adversarial ranges
+Additional 6 properties for tests
 100:
-float upper[] = {400,0,-3.1415926+0.025,250,200};
-float lower[] = {250,0,-3.1415926+0.025,250,200};
+upper = {400,0,-3.1415926+0.025,250,200};
+lower = {250,0,-3.1415926+0.025,250,200};
 model:2_1-2_9, 3_1-3_9, 4_1-4_9
 desired output: strong right is the minimal
 
 
 101:
-float upper[] = {400,0.4,-3.1415926+0.025,250,200};
-float lower[] = {250,0.2,-3.1415926+0.025,250,200};
+upper = {400,0.4,-3.1415926+0.025,250,200};
+lower = {250,0.2,-3.1415926+0.025,250,200};
 model:2_1-2_9, 3_1-3_9, 4_1-4_9
 desired output: strong right is the minimal
 
 
 102:
-float upper[] = {400,0.4,-3.1415926+0.005,400,400};
-float lower[] = {250,0.2,-3.1415926,100,0};
+upper = {400,0.4,-3.1415926+0.005,400,400};
+lower = {250,0.2,-3.1415926,100,0};
 model:2_1-2_9, 3_1-3_9, 4_1-4_9
 desired output: strong right is the minimal
 
 
 110:
-float upper[] = {10000,3.141592,-3.141592+0.01,1200,1200};
-float lower[] = {1000,3.141592,-3.141592+0.01,1200,1200};
+upper = {10000,3.141592,-3.141592+0.01,1200,1200};
+lower = {1000,3.141592,-3.141592+0.01,1200,1200};
 model:all
 desired output: strong right is the minimal
 
 
 111:
-float upper[] = {1000,3.141592,-3.141592+0.01,1200,1200};
-float lower[] = {1000,3.141592,-3.141592+0.01,0,1200};
+upper = {1000,3.141592,-3.141592+0.01,1200,1200};
+lower = {1000,3.141592,-3.141592+0.01,0,1200};
+model:all
+desired output: strong right is the minimal
+
+
+112:
+upper = {1000,3.141592,-3.141592+0.01,1200,1200};
+lower = {1000,3.141592,-3.141592+0.01,1200,0};
 model:all
 desired output: strong right is the minimal

@@ -24,9 +24,10 @@
  * [test for one run]: whether need to estimate the output range without
  * split. 0 is no, 1 is yes. Default value is 0.
  *
- * [check mode]: normal split mode is 0. check adv mode is 1.
- * Check adv mode will end the split as long as the depth goes
- * upper than 20. Default value is 0.
+ * [check mode]: normal split mode is 0. Check adv mode is 1.
+ * Check adv mode will prevent further splits as long as the depth goes
+ * upper than 20 so as to locate the concrete adversarial examples faster.
+ * Default value is 0.
  * 
  */
 

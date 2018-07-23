@@ -4,86 +4,91 @@ ReluVal is a system for formally analyzing self-defined properties on given neur
 This repository contains the implementation of ReluVal and the evalutions on ACAS Xu described in the paper.
 
 
-## Getting Started
+## Prerequisite
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
+### Openblas Installation
+Openblas library is used for matrix multiplication speedup. So please make sure you have successfully installed [Openblas](https://www.openblas.net/). You can follow following commands to install openblas or find the quick installation at [Openblas's Installation Guide](https://github.com/xianyi/OpenBLAS/wiki/Installation-Guide).
 
 ```
-Give examples
+wget http://github.com/xianyi/OpenBLAS/archive/v0.2.20.tar.gz
+tar -xzf SOpenBLAS-0.2.20.tar.gz
+cd OpenBLAS-0.2.20
+make
+make PREFIX=/path/to/your/installation install
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+### Downloading
 
 ```
-Give the example
+git clone https://github.com/tcwangshiqi-columbia/ReluVal
 ```
 
-And repeat
+### Compiling:
+Please make sure the path of OpenBLAS is the same as the one in MakeFile. Then you can compile ReluVal with following command:
 
 ```
-until finished
+cd ACAS
+make
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+## Running 
 
-## Running the tests
+The main function is in network_test.c. To run the function, you can call the binary ./network_test. It expects at least three arguments. Here is the argument list:
 
-Explain how to run the automated tests for this system
+property: the saftety property want to verify
 
-### Break down into end to end tests
+network: the network want to test with
 
-Explain what these tests test and why
+target: Wanted label of the property
+
+need to print = 0: whether need to print the detailed information of each split. 0 is not and 1 is yes. Default value is 0.
+
+test for one run = 0: whether need to estimate the output range without split refinement. 0 is no, 1 is yes. Default value is 0.
+
+check mode = 0: Normal split mode is 0. Check adv mode is 1. Check adv mode will prevent further splits as long as the depth goes upper than 20 so as to locate concrete adversarial examples faster. Default value is 0.
+
+The program will terminate in two ways:
+(1) a concrete adversarial is found.
+(2) the property is verified as safe.
+
+### Example
+
+Here is an example for running ReluVal:
 
 ```
-Give an example
+./network_test 5 ./nnet/ACASXU_run2a_1_1_batch_2000.nnet 4
 ```
 
-### And coding style tests
+### ACAS Xu experiments:
 
-Explain what these tests test and why
+The evaluations on ACAS Xu can be easily ran with pre-written scripts in folder "scripts". Here is an example:S
 
 ```
-Give an example
+./scripts/run_property5.sh
 ```
 
-## Deployment
 
-Add additional notes about how to deploy this on a live system
+## Citing ReluVal
 
-## Built With
+```
+@inproceedings {Shiqi18,
+author = {Shiqi Wang and Kexin Pei and Justin Whitehouse and Junfeng Yang and Suman Jana},
+title = {Formal Security Analysis of Neural Networks using Symbolic Intervals},
+booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},
+year = {2018},
+address = {Baltimore, MD},
+url = {https://www.usenix.org/conference/usenixsecurity18/presentation/wang-shiqi},
+publisher = {{USENIX} Association},
+}
+```
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-## Contributing
+## Contributors
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+* [Shiqi Wang](https://sites.google.com/view/tcwangshiqi) - tcwangshiqi@cs.columbia.edu
+* [Kexin Pei](https://sites.google.com/site/kexinpeisite/) - kpei@cs.columbia.edu
+* Justin Whitehouse 
+* [Junfeng Yang](http://www.cs.columbia.edu/~junfeng/) - junfeng@cs.columbia.edu
+* [Suman Jana](http://www.cs.columbia.edu/~suman/) - suman@cs.columbia.edu
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc

@@ -59,9 +59,13 @@ Here is an example for running ReluVal:
 ./network_test 5 ./nnet/ACASXU_run2a_1_1_batch_2000.nnet 4
 ```
 
-### ACAS Xu experiments:
+### Properties
 
-The evaluations on ACAS Xu can be easily ran with pre-written scripts in folder "scripts". Here is an example:
+The ACAS Xu properties reported in the paper are defined in the Appendix A and in the file properties. One can easily create own properties with following three steps: (1) creating new models in the same style as ones in folder nnet, (2) adding new bounded input ranges in function load_inputs in file nnet.c, and (3) adding check function of the property in function check_functions and check_functions1 in file split.c. 
+
+### ACAS Xu experiments
+
+The test on ACAS Xu can be easily ran with pre-written scripts in folder "scripts". Here is an example:
 
 ```
 ./scripts/run_property5.sh

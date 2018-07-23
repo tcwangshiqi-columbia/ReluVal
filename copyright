@@ -1,0 +1,18 @@
+The main contributors and authors of ReluVal are:
+
+	Shiqi Wang, Columbia University.
+	Kexin Pei, Columbia University.
+	Justin Whitehouse, Columbia University.
+	Junfeng Yang, Columbia University.
+	Suman Jana, Columbia University.
+
+ReluVal is copyright (C) 2018-2019 by its authors and contributors and their institutional affiliations. All rights reserved. The source code of ReluVal is open and available to study, to modify, and to redistribute original or modified versions;
+
+The neural network of ACAS Xu data files under the nnet folder are copyright (C)
+2016-2017 by their authors and Stanford university, and are
+distributed under the Creative Commons Attribution 4.0 International
+License (https://creativecommons.org/licenses/by/4.0/).
+
+The function of loading and destroying network is modified from Reluplex. And its distribution is under the terms of their modified BSD license.
+
+Openblas library is used for matrix multiplication speed up. OpenBLAS is licensed under the 3-clause BSD license.

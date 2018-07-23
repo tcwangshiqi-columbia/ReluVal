@@ -1,0 +1,1 @@
+./network_test 12 ./nnet/ACASXU_run2a_3_3_batch_2000.nnet 0

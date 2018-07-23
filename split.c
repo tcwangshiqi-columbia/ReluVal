@@ -552,7 +552,21 @@ int direct_run_check(struct NNet *nnet,\
 
             progress++;
 
-            fprintf(stderr, "progress=%d/1024\r", progress);
+            //fprintf(stderr, "progress=%d/1024\r", progress);
+            printf("progress: [");
+
+            for (int pp=0;pp<50;pp++) {
+
+                if (pp <= ((float)progress/1024)*50) {
+                    printf("=");
+                }
+                else {
+                    printf(" ");
+                }
+            }
+
+            printf("] %0.2f%%\r", ((float)progress/1024)*100);
+            fflush(stdout);
             //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {
@@ -616,6 +630,16 @@ int direct_run_check(struct NNet *nnet,\
 
     }
 
+    if(!adv_found && depth==0){
+        printf("progress: [");
+
+        for (int pp=0;pp<50;pp++) {
+            printf("=");
+        }
+
+        printf("] %0.2f%%\n", 100.00);
+    }
+
 	return isOverlap;
 
 }
@@ -653,9 +677,11 @@ void check_adv(struct NNet* nnet, struct Interval *input)
     //printMatrix(&output);
 
     if (is_adv) {
-        printf("adv found:\n");
+        printf("\nadv found:\n");
         denormalize_input(nnet, &adv);
+        printf("adv is: ");
         printMatrix(&adv);
+        printf("it's output is: ");
         printMatrix(&output);
         pthread_mutex_lock(&lock);
         adv_found = 1;
@@ -970,7 +996,22 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
                 progress++;
 
-                fprintf(stderr, "progress=%d/1024\r", progress);
+                //fprintf(stderr, "progress=%d/1024\r", progress);
+                printf("progress: [");
+
+                for (int pp=0;pp<50;pp++) {
+
+                    if (pp <= ((float)progress/1024)*50) {
+                        printf("=");
+                    }
+                    else {
+                        printf(" ");
+                    }
+
+                }
+
+                printf("] %0.2f%%\r", ((float)progress/1024)*100);
+                fflush(stdout);
                 //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
                 if (PARTIAL_MODE) {
@@ -1006,7 +1047,23 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
         pthread_mutex_lock(&lock);
 
             progress++;
-            fprintf(stderr, "progress=%d/1024\r", progress);
+            //fprintf(stderr, "progress=%d/1024\r", progress);
+            fprintf(stderr, "progress: [");
+
+            for (int pp=0;pp<50;pp++) {
+
+                if (pp <= ((float)progress/1024)*50) {
+                    fprintf(stderr, "=");
+                }
+                else {
+                    fprintf(stderr, " ");
+                }
+
+            }
+
+            printf("] %0.2f%%\r", ((float)progress/1024)*100);
+            fflush(stdout);
+            
             //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {

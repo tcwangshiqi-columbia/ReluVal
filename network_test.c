@@ -248,11 +248,11 @@ int main( int argc, char *argv[])
             1000000;
 
     if (isOverlap == 0 && adv_found == 0) {
-        printf("No adv!\n");
+        printf("\nNo adv!\n");
     }
 
     
-    printf("time: %f \n", time_spent);
+    printf("time: %f \n\n\n", time_spent);
 
     destroy_network(nnet);
     free(feature_range);

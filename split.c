@@ -552,7 +552,7 @@ int direct_run_check(struct NNet *nnet,\
 
             progress++;
 
-            fprintf(stderr, "progress=%d/1024\n", progress);
+            fprintf(stderr, "progress=%d/1024\r", progress);
             //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {
@@ -970,7 +970,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
                 progress++;
 
-                fprintf(stderr, "progress=%d/1024\n", progress);
+                fprintf(stderr, "progress=%d/1024\r", progress);
                 //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
                 if (PARTIAL_MODE) {
@@ -1006,7 +1006,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
         pthread_mutex_lock(&lock);
 
             progress++;
-            fprintf(stderr, "progress=%d/1024\n", progress);
+            fprintf(stderr, "progress=%d/1024\r", progress);
             //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {

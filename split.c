@@ -552,22 +552,24 @@ int direct_run_check(struct NNet *nnet,\
 
             progress++;
 
-            //fprintf(stderr, "progress=%d/1024\r", progress);
-            printf("progress: [");
+            if(!adv_found){
+                //fprintf(stderr, "progress=%d/1024\r", progress);
+                printf("progress: [");
 
-            for (int pp=0;pp<50;pp++) {
+                for (int pp=0;pp<50;pp++) {
 
-                if (pp <= ((float)progress/1024)*50) {
-                    printf("=");
+                    if (pp <= ((float)progress/1024)*50) {
+                        printf("=");
+                    }
+                    else {
+                        printf(" ");
+                    }
                 }
-                else {
-                    printf(" ");
-                }
+
+                printf("] %0.2f%%\r", ((float)progress/1024)*100);
+                fflush(stdout);
+                //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
             }
-
-            printf("] %0.2f%%\r", ((float)progress/1024)*100);
-            fflush(stdout);
-            //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {
                 denormalize_input_interval(nnet, input);
@@ -996,22 +998,25 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
                 progress++;
 
-                //fprintf(stderr, "progress=%d/1024\r", progress);
-                printf("progress: [");
+                if(!adv_found){
+                    //fprintf(stderr, "progress=%d/1024\r", progress);
+                    printf("progress: [");
 
-                for (int pp=0;pp<50;pp++) {
+                    for (int pp=0;pp<50;pp++) {
 
-                    if (pp <= ((float)progress/1024)*50) {
-                        printf("=");
+                        if (pp <= ((float)progress/1024)*50) {
+                            printf("=");
+                        }
+                        else {
+                            printf(" ");
+                        }
+
                     }
-                    else {
-                        printf(" ");
-                    }
 
+                    printf("] %0.2f%%\r", ((float)progress/1024)*100);
+                    fflush(stdout);
                 }
-
-                printf("] %0.2f%%\r", ((float)progress/1024)*100);
-                fflush(stdout);
+                
                 //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
                 if (PARTIAL_MODE) {
@@ -1047,23 +1052,26 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
         pthread_mutex_lock(&lock);
 
             progress++;
-            //fprintf(stderr, "progress=%d/1024\r", progress);
-            fprintf(stderr, "progress: [");
 
-            for (int pp=0;pp<50;pp++) {
+            if(!adv_found){
+                //fprintf(stderr, "progress=%d/1024\r", progress);
+                fprintf(stderr, "progress: [");
 
-                if (pp <= ((float)progress/1024)*50) {
-                    fprintf(stderr, "=");
+                for (int pp=0;pp<50;pp++) {
+
+                    if (pp <= ((float)progress/1024)*50) {
+                        fprintf(stderr, "=");
+                    }
+                    else {
+                        fprintf(stderr, " ");
+                    }
+
                 }
-                else {
-                    fprintf(stderr, " ");
-                }
 
+                printf("] %0.2f%%\r", ((float)progress/1024)*100);
+                fflush(stdout);
             }
 
-            printf("] %0.2f%%\r", ((float)progress/1024)*100);
-            fflush(stdout);
-            
             //fprintf(stderr, "smear_cnt=%d\n", smear_cnt);
 
             if (PARTIAL_MODE) {

@@ -228,7 +228,7 @@ int main( int argc, char *argv[])
     
     }
     else {
-        printf("check mode: No CHECK_ADV_MODE\n");
+        printf("check mode: NORMAL_CHECK_MODE\n");
 
         for (int i=0;i<1;i++) {
             //forward_prop_interval_equation(nnet,\

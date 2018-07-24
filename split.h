@@ -64,15 +64,15 @@ extern int count;
  */
 struct direct_run_check_args
 {
-	struct NNet *nnet;
-	struct Interval *input;
-	struct Interval *output;
-	struct Interval *grad; 
-	int depth;
-	int *feature_range;
-	int feature_range_length;
-	int split_feature;
-	//int avg_depth;
+    struct NNet *nnet;
+    struct Interval *input;
+    struct Interval *output;
+    struct Interval *grad; 
+    int depth;
+    int *feature_range;
+    int feature_range_length;
+    int split_feature;
+    //int avg_depth;
 };
 
 
@@ -108,9 +108,9 @@ void *direct_run_check_thread(void *args);
  * or terminate according to given approximated output ranges.
  */
 int direct_run_check(struct NNet *nnet, struct Interval *input,
-					 struct Interval *output, struct Interval *grad, 
-					 int depth, int *feature_range, int feature_range_length, 
-					 int split_feature);
+                     struct Interval *output, struct Interval *grad, 
+                     int depth, int *feature_range, int feature_range_length, 
+                     int split_feature);
 
 
 /*
@@ -118,9 +118,9 @@ int direct_run_check(struct NNet *nnet, struct Interval *input,
  * for newly split input ranges.
  */
 int split_interval(struct NNet *nnet, struct Interval *input,
-				   struct Interval *output, struct Interval *grad, 
-				   int depth, int *feature_range, int feature_range_length, 
-				   int split_feature);
+                   struct Interval *output, struct Interval *grad, 
+                   int depth, int *feature_range, int feature_range_length, 
+                   int split_feature);
 
 
 #endif

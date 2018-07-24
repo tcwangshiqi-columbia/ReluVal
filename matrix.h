@@ -22,8 +22,8 @@
 /* Define the structure of Matrix */
 struct Matrix
 {
-	float* data;
-	int row, col;
+    float* data;
+    int row, col;
 };
 
 
@@ -33,21 +33,21 @@ void add_constant(struct Matrix* A, float alpha);
 
 /*matrix multiplication with factors */
 void matmul_with_factor(struct Matrix* A,\
-						struct Matrix* B,\
-						struct Matrix* C,\
-						float alpha,\
-						float beta);
+                        struct Matrix* B,\
+                        struct Matrix* C,\
+                        float alpha,\
+                        float beta);
 
 /* matrix multiplication */
 void matmul(struct Matrix* A,\
-			struct Matrix* B,\
-			struct Matrix* C);
+            struct Matrix* B,\
+            struct Matrix* C);
 
 
 /* matrix multiplication with bias */
 void matmul_with_bias(struct Matrix* A,\
-					  struct Matrix* B,\
-					  struct Matrix* C);
+                      struct Matrix* B,\
+                      struct Matrix* C);
 
 
 /* element-wise multiplication */

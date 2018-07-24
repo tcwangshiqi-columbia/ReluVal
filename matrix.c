@@ -21,14 +21,14 @@
 void matmul_with_factor(struct Matrix* A,\
                         struct Matrix* B,\
                         struct Matrix* C,\
-						float alpha,\
+                        float alpha,\
                         float beta)
 {
 
-	int m = A->row;
+    int m = A->row;
     int k = A->col;
     int n = B->col;
-	cblas_sgemm(CblasColMajor,\
+    cblas_sgemm(CblasColMajor,\
                 CblasNoTrans,\
                 CblasNoTrans,\
                 m, n, k, alpha,\
@@ -46,12 +46,12 @@ void matmul_with_factor(struct Matrix* A,\
 void add_constant(struct Matrix* A, float alpha)
 {
 
-	int m = A->row;
+    int m = A->row;
     int k = A->col;
 
-	for (int i=0;i<m*k;i++) {
-		A->data[i] += alpha;
-	}
+    for (int i=0;i<m*k;i++) {
+        A->data[i] += alpha;
+    }
 
 }
 

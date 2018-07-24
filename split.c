@@ -131,15 +131,15 @@ int check_not_min_p8(struct NNet *nnet, struct Interval *output)
 int check_not_min(struct NNet *nnet, struct Interval *output)
 {
 
-	for (int i=0;i<nnet->outputSize;i++) {
+    for (int i=0;i<nnet->outputSize;i++) {
 
-		if (output->lower_matrix.data[i]<0 && i != nnet->target) {
-			return 1;
-		}
+        if (output->lower_matrix.data[i]<0 && i != nnet->target) {
+            return 1;
+        }
 
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 
@@ -520,27 +520,27 @@ int direct_run_check(struct NNet *nnet,\
     if (NEED_PRINT) {
         pthread_mutex_lock(&lock);
 
-    	printMatrix(&output->upper_matrix);
-    	printMatrix(&output->lower_matrix);
+        printMatrix(&output->upper_matrix);
+        printMatrix(&output->lower_matrix);
 
-    	printf("[");
-    	for (int i=0;i<feature_range_length;i++) {
-    	    printf("%d ", feature_range[i]);
-    	}
-    	printf("] ");
+        printf("[");
+        for (int i=0;i<feature_range_length;i++) {
+            printf("%d ", feature_range[i]);
+        }
+        printf("] ");
 
-    	if (isOverlap) {
-    	    printf("split_feature:%d isOverlap: True depth:%d\n", \
+        if (isOverlap) {
+            printf("split_feature:%d isOverlap: True depth:%d\n", \
                         split_feature, depth);
-    	}
-    	else {
-    	    printf("split_feature:%d isOverlap: False depth:%d\n", \
+        }
+        else {
+            printf("split_feature:%d isOverlap: False depth:%d\n", \
                         split_feature, depth);
-    	}
-    		
-    	printMatrix(&input->upper_matrix);
-    	printMatrix(&input->lower_matrix);
-    	printf("\n");
+        }
+            
+        printMatrix(&input->upper_matrix);
+        printMatrix(&input->lower_matrix);
+        printf("\n");
 
         pthread_mutex_unlock(&lock);
 
@@ -582,20 +582,20 @@ int direct_run_check(struct NNet *nnet,\
 
         //printf("progress,%d/1024\n", progress);
     }
-	
+    
     if (isOverlap && NEED_FOR_ONE_RUN == 0) {
-	   isOverlap = split_interval(nnet, input, output,\
+       isOverlap = split_interval(nnet, input, output,\
                             grad, depth, feature_range,\
                             feature_range_length,\
                             split_feature);
     }
     else if (!isOverlap) {
-	pthread_mutex_lock(&lock);
+    pthread_mutex_lock(&lock);
 
-    	avg_depth -= (avg_depth) / AVG_WINDOW;
-    	avg_depth += depth / AVG_WINDOW;
+        avg_depth -= (avg_depth) / AVG_WINDOW;
+        avg_depth += depth / AVG_WINDOW;
 
-	pthread_mutex_unlock(&lock);
+    pthread_mutex_unlock(&lock);
 
         //printf("%f, %f\n", total_avg_depth,avg_depth);
 
@@ -642,7 +642,7 @@ int direct_run_check(struct NNet *nnet,\
         printf("] %0.2f%%\n", 100.00);
     }
 
-	return isOverlap;
+    return isOverlap;
 
 }
 
@@ -715,11 +715,11 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
     if (adv_found) {
 
-	pthread_mutex_unlock(&lock);
+    pthread_mutex_unlock(&lock);
 
         return 0;
     }
-	
+    
     pthread_mutex_unlock(&lock);
    
     memcpy(input_upper1, input->upper_matrix.data,\
@@ -933,7 +933,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
     if ((depth <= avg_depth - MIN_DEPTH_PER_THREAD) &&\
             (count<=MAX_THREAD)) {
 
-	pthread_mutex_unlock(&lock);
+    pthread_mutex_unlock(&lock);
 
         pthread_t workers1, workers2;
         struct direct_run_check_args args1 = {
@@ -1033,7 +1033,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
     }
     else {
 
-	pthread_mutex_unlock(&lock);
+    pthread_mutex_unlock(&lock);
 
         int isOverlap1 = direct_run_check(nnet, &input_interval1, 
                                      &output_interval1, &grad_interval1,

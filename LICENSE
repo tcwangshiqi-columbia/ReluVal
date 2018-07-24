@@ -8,9 +8,9 @@ The main contributors and authors of ReluVal are:
 
 ReluVal is Copyright (C) 2018-2019 by its authors and contributors and their institutional affiliations. All rights reserved. The source code of ReluVal is open and available to study, to modify, and to redistribute original or modified versions;
 
-ReluVal uses OpenBLAS library to speed up the matrix multiplication, which is under the terms of the modified BSD license. Two functions destroy_network and load_network are modified from Reluplex, which is also under the terms of the modified BSD license.
+ReluVal uses OpenBLAS library to speed up the matrix multiplication, which is under the terms of BSD license. Two functions, destroy_network and load_network in file nnet.c, are modified from Reluplex, which is also under the terms of the modified BSD license.
 
-All of the source code of ReluVal is under the terms of the modified BSD license shown as below.
+All of the source code of ReluVal is under the terms of the modified BSD license reproduced as below.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 

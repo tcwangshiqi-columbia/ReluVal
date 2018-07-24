@@ -30,6 +30,7 @@ git clone https://github.com/tcwangshiqi-columbia/ReluVal
 Please make sure the path of OpenBLAS is the same as the one in MakeFile. Then you can compile ReluVal with following command:
 
 ```
+cd ReluVal
 make
 ```
 

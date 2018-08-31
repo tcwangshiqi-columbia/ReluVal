@@ -1103,12 +1103,10 @@ int forward_prop_interval_equation(struct NNet *network,\
     }
 
     for (layer=0;layer<(numLayers);layer++) {
-
-        for (i=0;i<maxLayerSize;i++) {
-            memset(new_equation_upper, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
-            memset(new_equation_lower, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
-        }
-
+        
+        memset(new_equation_upper, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
+        memset(new_equation_lower, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
+        
         struct Matrix weights = nnet->weights[layer];
         struct Matrix bias = nnet->bias[layer];
 

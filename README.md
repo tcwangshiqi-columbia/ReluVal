@@ -87,7 +87,7 @@ The test on ACAS Xu can be easily ran with pre-written scripts in folder "script
 ## Citing ReluVal
 
 ```
-@inproceedings {Shiqi18,
+@inproceedings {shiqi2018reluval,
 	author = {Shiqi Wang and Kexin Pei and Justin Whitehouse and Junfeng Yang and Suman Jana},
 	title = {Formal Security Analysis of Neural Networks using Symbolic Intervals},
 	booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},

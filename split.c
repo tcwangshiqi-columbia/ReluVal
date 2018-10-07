@@ -513,7 +513,7 @@ int direct_run_check(struct NNet *nnet,\
 
     pthread_mutex_unlock(&lock);
 
-    forward_prop_interval_equation(nnet, input, output, grad);
+    forward_prop_interval_equation_linear2(nnet, input, output, grad);
 
     int isOverlap = check_functions(nnet, output);
 

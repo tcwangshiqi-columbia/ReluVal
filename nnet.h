@@ -128,6 +128,8 @@ int forward_prop_interval(struct NNet *network, struct Interval *input, struct I
 */
 int forward_prop_interval_equation(struct NNet *network, struct Interval *input, struct Interval *output, struct Interval *grad);
 
+// new propagation method which can make the verification much faster! 
+int forward_prop_interval_equation_linear2(struct NNet *network, struct Interval *input, struct Interval *output, struct Interval *grad);
 
 /*
  * The back prop to calculate the gradient

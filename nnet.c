@@ -1275,3 +1275,203 @@ int forward_prop_interval_equation(struct NNet *network,\
     return 1;
 
 }
+
+
+// new propagation method which can make the verification much faster! 
+int forward_prop_interval_equation_linear2(struct NNet *network,\
+            struct Interval *input, struct Interval *output,\
+            struct Interval *grad)
+{
+    int i,j,k,layer;
+
+    struct NNet* nnet = network;
+    int numLayers    = nnet->numLayers;
+    int inputSize    = nnet->inputSize;
+    int outputSize   = nnet->outputSize;
+    int maxLayerSize   = nnet->maxLayerSize;
+
+    int R[numLayers][maxLayerSize];
+    memset(R, 0, sizeof(float)*numLayers*maxLayerSize);
+
+    // equation is the temp equation for each layer
+    float equation_upper[(inputSize+1)*maxLayerSize];
+    float equation_lower[(inputSize+1)*maxLayerSize];
+    float new_equation_upper[(inputSize+1)*maxLayerSize];
+    float new_equation_lower[(inputSize+1)*maxLayerSize];
+    memset(equation_upper,0,sizeof(float)*(inputSize+1)*maxLayerSize);
+    memset(equation_lower,0,sizeof(float)*(inputSize+1)*maxLayerSize);
+
+    struct Interval equation_inteval = {
+                (struct Matrix){(float*)equation_lower, inputSize+1, inputSize},
+                (struct Matrix){(float*)equation_upper, inputSize+1, inputSize}
+            };
+    struct Interval new_equation_inteval = {
+                (struct Matrix){(float*)new_equation_lower, inputSize+1, maxLayerSize},
+                (struct Matrix){(float*)new_equation_upper, inputSize+1, maxLayerSize}
+            };                                       
+
+    float tempVal_upper=0.0, tempVal_lower=0.0;
+    float upper_s_lower=0.0, lower_s_upper=0.0;
+    for (i=0; i < nnet->inputSize; i++)
+    {
+        equation_lower[i*(inputSize+1)+i] = 1;
+        equation_upper[i*(inputSize+1)+i] = 1;
+    }
+
+    for (layer = 0; layer<(numLayers); layer++)
+    {
+
+        memset(new_equation_upper, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
+        memset(new_equation_lower, 0, sizeof(float)*(inputSize+1)*maxLayerSize);
+        
+        struct Matrix weights = nnet->weights[layer];
+        struct Matrix bias = nnet->bias[layer];
+        float p[weights.col*weights.row];
+        float n[weights.col*weights.row];
+        memset(p, 0, sizeof(float)*weights.col*weights.row);
+        memset(n, 0, sizeof(float)*weights.col*weights.row);
+        struct Matrix pos_weights = {p, weights.row, weights.col};
+        struct Matrix neg_weights = {n, weights.row, weights.col};
+        for(i=0;i<weights.row*weights.col;i++){
+            if(weights.data[i]>=0){
+                p[i] = weights.data[i];
+            }
+            else{
+                n[i] = weights.data[i];
+            }
+        }
+
+        matmul(&equation_inteval.upper_matrix, &pos_weights, &new_equation_inteval.upper_matrix);
+        matmul_with_bias(&equation_inteval.lower_matrix, &neg_weights, &new_equation_inteval.upper_matrix);
+
+        matmul(&equation_inteval.lower_matrix, &pos_weights, &new_equation_inteval.lower_matrix);
+        matmul_with_bias(&equation_inteval.upper_matrix, &neg_weights, &new_equation_inteval.lower_matrix);
+        
+        for (i=0; i < nnet->layerSizes[layer+1]; i++)
+        {
+            tempVal_upper = tempVal_lower = 0.0;
+            lower_s_upper = upper_s_lower = 0.0;
+
+            if(NEED_OUTWARD_ROUND){
+                for(k=0;k<inputSize;k++){
+                    if(new_equation_lower[k+i*(inputSize+1)]>=0){
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k]-OUTWARD_ROUND;
+                        lower_s_upper += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k]-OUTWARD_ROUND;
+                    }
+                    else{
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k]-OUTWARD_ROUND;
+                        lower_s_upper += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k]-OUTWARD_ROUND;
+                    }
+                    if(new_equation_upper[k+i*(inputSize+1)]>=0){
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k]+OUTWARD_ROUND;
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k]+OUTWARD_ROUND;
+                    }
+                    else{
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k]+OUTWARD_ROUND;
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k]+OUTWARD_ROUND;
+                    }  
+                }
+            }
+            else{
+                for(k=0;k<inputSize;k++){
+                    if(layer==0){
+                        if(new_equation_lower[k+i*(inputSize+1)]!=new_equation_upper[k+i*(inputSize+1)]){
+                            printf("wrong!\n");
+                        }
+                    }
+                    if(new_equation_lower[k+i*(inputSize+1)]>=0){
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k];
+                        lower_s_upper += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+                    }
+                    else{
+                        tempVal_lower += new_equation_lower[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+                        lower_s_upper += new_equation_lower[k+i*(inputSize+1)] * input->lower_matrix.data[k];
+                    }
+                    if(new_equation_upper[k+i*(inputSize+1)]>=0){
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k];
+                    }
+                    else{
+                        tempVal_upper += new_equation_upper[k+i*(inputSize+1)] * input->lower_matrix.data[k];
+                        upper_s_lower += new_equation_upper[k+i*(inputSize+1)] * input->upper_matrix.data[k];
+                    }  
+                }
+            }
+            
+            new_equation_lower[inputSize+i*(inputSize+1)] += bias.data[i];
+            new_equation_upper[inputSize+i*(inputSize+1)] += bias.data[i];
+            tempVal_lower += new_equation_lower[inputSize+i*(inputSize+1)];
+            lower_s_upper += new_equation_lower[inputSize+i*(inputSize+1)];
+            tempVal_upper += new_equation_upper[inputSize+i*(inputSize+1)];
+            upper_s_lower += new_equation_upper[inputSize+i*(inputSize+1)];
+
+            //Perform ReLU
+            if(layer<(numLayers-1)){
+                if (tempVal_upper<=0.0){
+                    tempVal_upper = 0.0;
+                    for(k=0;k<inputSize+1;k++){
+                        new_equation_upper[k+i*(inputSize+1)] = 0;
+                        new_equation_lower[k+i*(inputSize+1)] = 0;
+                    }
+                    R[layer][i] = 0;
+                }
+                else if(tempVal_lower>=0.0){
+                    R[layer][i] = 2;
+                }
+                else{
+                    if(lower_s_upper>0 || upper_s_lower<0){
+                        //printf("%d,%d:%f, %f, %f, %f\n",layer, i, tempVal_lower, lower_s_upper, upper_s_lower, tempVal_upper );
+                    }
+                    //printf("wrong node: ");
+                    if(upper_s_lower<0.0){
+                        for(k=0;k<inputSize+1;k++){
+                            new_equation_upper[k+i*(inputSize+1)] =\
+                                                    new_equation_upper[k+i*(inputSize+1)]*\
+                                                    tempVal_upper / (tempVal_upper-upper_s_lower);
+                        }
+                        new_equation_upper[inputSize+i*(inputSize+1)] -= tempVal_upper*upper_s_lower/\
+                                                            (tempVal_upper-upper_s_lower);
+                    }
+
+                    if(lower_s_upper<0.0){
+                        for(k=0;k<inputSize+1;k++){
+                            new_equation_lower[k+i*(inputSize+1)] = 0;
+                        }
+                    }
+                    else{
+                        /*
+                        if(lower_s_upper<-tempVal_lower){
+                            for(k=0;k<inputSize+1;k++){
+                                new_equation_lower[k+i*(inputSize+1)] = 0;
+                            }
+                        }  
+                        */
+                        for(k=0;k<inputSize+1;k++){
+                            new_equation_lower[k+i*(inputSize+1)] =\
+                                                    new_equation_lower[k+i*(inputSize+1)]*\
+                                                    lower_s_upper / (lower_s_upper- tempVal_lower);
+                        }
+                        
+
+                    }
+                    R[layer][i] = 1;
+                }
+            }
+            else{
+                output->upper_matrix.data[i] = tempVal_upper;
+                output->lower_matrix.data[i] = tempVal_lower;
+            }
+        }
+        //printf("\n");
+        memcpy(equation_upper, new_equation_upper, sizeof(float)*(inputSize+1)*maxLayerSize);
+        memcpy(equation_lower, new_equation_lower, sizeof(float)*(inputSize+1)*maxLayerSize);
+        equation_inteval.lower_matrix.row = equation_inteval.upper_matrix.row =\
+                                                         new_equation_inteval.lower_matrix.row;
+        equation_inteval.lower_matrix.col = equation_inteval.upper_matrix.col =\
+                                                         new_equation_inteval.lower_matrix.col;
+    }
+
+    backward_prop(nnet, grad, R);
+
+    return 1;
+}

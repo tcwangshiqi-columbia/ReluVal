@@ -5,7 +5,7 @@ You can find detailed description of ReluVal in paper [Formal Security Analysis 
 
 This repository contains the implementation of ReluVal and the evalutions on ACAS Xu described in the paper. 
 
-Currently, we have proposed a followup improved system, namely Neurify, proposed in our NIPS 2018 paper [Efficient Formal Safety Analysis of Neural Networks](https://arxiv.org/abs/1809.08098). Part of improvements of Neurify have been merged into this repo and successfully improve on average 20 times performance on ACAS Xu dataset compared to ReluVal and achieve on average 5000 times better performance compared to Reluplex.
+Currently, we have proposed a followup improved system, namely Neurify, proposed in our NIPS 2018 paper [Efficient Formal Safety Analysis of Neural Networks](https://arxiv.org/abs/1809.08098). Part of improvements of Neurify have been merged into this repo and successfully improve on average 20 times performance on ACAS Xu dataset compared to ReluVal and achieve on average 5000 times better performance compared to Reluplex. Neurify also supports convolutional models and malware detection models. One can find the implementations of Neurify from [Neurify's repo](https://github.com/tcwangshiqi-columbia/Neurify).
 
 
 ## Prerequisite

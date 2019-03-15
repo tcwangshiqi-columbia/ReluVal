@@ -878,7 +878,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
             //printMatrix(&input->upper_matrix);
             //printMatrix(&input->lower_matrix);
         //}
-        
+        /*
         if (smear_sum <= 0.02) {
             //printf("tighten:  smear_sum: %f  depth:%d  output:", smear_sum, depth);
 
@@ -897,7 +897,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
             //printf("1\n");
 
         }
-
+	*/
         if (CHECK_ADV_MODE) {
 
             if (depth >= 25 || upper-middle <= ADV_THRESHOLD) {

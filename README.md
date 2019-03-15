@@ -83,6 +83,8 @@ The test on ACAS Xu can be easily ran with pre-written scripts in folder "script
 ./scripts/run_property5.sh
 ```
 
+## Reporting bugs
+Please contact Shiqi Wang (tcwangshiqi@cs.columbia.edu) or submit an issue in https://github.com/tcwangshiqi-columbia/ReluVal/issues.
 
 ## Citing ReluVal
 

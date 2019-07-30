@@ -1045,7 +1045,7 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
                                      depth, feature_range2,
                                      feature_range_length2, split_feature);
 
-        int result = isOverlap1 || isOverlap1;
+        int result = isOverlap1 || isOverlap2;
 
         if (result == 0 && depth == 11) {
 

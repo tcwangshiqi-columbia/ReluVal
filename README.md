@@ -15,11 +15,13 @@ Currently, we have proposed a followup improved system, namely Neurify, proposed
 OpenBLAS library is used for matrix multiplication speedup. So please make sure you have successfully installed [OpenBLAS](https://www.openblas.net/). You can follow following commands to install openblas or find the quick installation guide at [OpenBLAS's Installation Guide](https://github.com/xianyi/OpenBLAS/wiki/Installation-Guide).
 
 ```
-wget http://github.com/xianyi/OpenBLAS/archive/v0.2.20.tar.gz
-tar -xzf SOpenBLAS-0.2.20.tar.gz
-cd OpenBLAS-0.2.20
+sudo apt-get install libopenblas-base
+wget https://github.com/xianyi/OpenBLAS/archive/v0.3.6.tar.gz
+tar -xzf v0.3.6.tar.gz
+cd OpenBLAS-0.3.6
 make
 make PREFIX=/path/to/your/installation install
+mv OpenBLAS-0.3.6 OpenBLAS
 ```
 
 ### Downloading

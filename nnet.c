@@ -978,16 +978,16 @@ void backward_prop(struct NNet *nnet,\
     float grad1_lower[maxLayerSize];
 
     memcpy(grad_upper, nnet->matrix[numLayers-1][0][nnet->target],\
-                    sizeof(float)*maxLayerSize);
+                    sizeof(float)*nnet->layerSizes[numLayers-1]);
     memcpy(grad_lower, nnet->matrix[numLayers-1][0][nnet->target],\
-                    sizeof(float)*maxLayerSize);
+                    sizeof(float)*nnet->layerSizes[numLayers-1]);
 
     for (layer=numLayers-2;layer>-1;layer--){ 
         float **weights = nnet->matrix[layer][0];
-        memset(grad1_upper, 0, sizeof(float)*maxLayerSize);
-        memset(grad1_lower, 0, sizeof(float)*maxLayerSize);
+        memset(grad1_upper, 0, sizeof(float)*nnet->layerSizes[layer]);
+        memset(grad1_lower, 0, sizeof(float)*nnet->layerSizes[layer]);
 
-        for (j=0;j<maxLayerSize;j++) {
+        for (j=0;j<nnet->layerSizes[layer+1];j++) {
 
             if(R[layer][j] == 0){
                 grad_upper[j] = grad_lower[j] = 0;
@@ -997,43 +997,22 @@ void backward_prop(struct NNet *nnet,\
                 grad_lower[j] = (grad_lower[j]<0)?grad_lower[j]:0;
             }
 
-            if (layer != 0) {
-
-                for (i=0;i<maxLayerSize;i++) {
-
-                    if (weights[j][i] >= 0) {
-                        grad1_upper[i] += weights[j][i]*grad_upper[j]; 
-                        grad1_lower[i] += weights[j][i]*grad_lower[j]; 
-                    }
-                    else {
-                        grad1_upper[i] += weights[j][i]*grad_lower[j]; 
-                        grad1_lower[i] += weights[j][i]*grad_upper[j]; 
-                    }
-
-                }
+            for (i=0;i<nnet->layerSizes[layer];i++) {
                 
-            }
-            else {
-
-                for (i=0;i<inputSize;i++) {
-
-                    if (weights[j][i] >= 0) {
-                        grad1_upper[i] += weights[j][i]*grad_upper[j]; 
-                        grad1_lower[i] += weights[j][i]*grad_lower[j]; 
-                    }
-                    else {
-                        grad1_upper[i] += weights[j][i]*grad_lower[j]; 
-                        grad1_lower[i] += weights[j][i]*grad_upper[j]; 
-                    }
-
+                if (weights[j][i] >= 0) {
+                    grad1_upper[i] += weights[j][i]*grad_upper[j];
+                    grad1_lower[i] += weights[j][i]*grad_lower[j];
                 }
-
+                else {
+                    grad1_upper[i] += weights[j][i]*grad_lower[j];
+                    grad1_lower[i] += weights[j][i]*grad_upper[j];
+                }
             }
         }
 
         if (layer != 0) {
-            memcpy(grad_upper,grad1_upper,sizeof(float)*maxLayerSize);
-            memcpy(grad_lower,grad1_lower,sizeof(float)*maxLayerSize);
+            memcpy(grad_upper,grad1_upper,sizeof(float)*nnet->layerSizes[layer]);
+            memcpy(grad_lower,grad1_lower,sizeof(float)*nnet->layerSizes[layer]);
         }
         else {
             memcpy(grad->lower_matrix.data, grad1_lower,\
@@ -1041,7 +1020,6 @@ void backward_prop(struct NNet *nnet,\
             memcpy(grad->upper_matrix.data, grad1_upper,\
                                         sizeof(float)*inputSize);
         }
-
     }
 
 }

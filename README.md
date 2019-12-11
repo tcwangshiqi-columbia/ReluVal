@@ -65,6 +65,8 @@ check mode = 0: choose the mode of formal anlysis. Normal split and check mode i
 
 The program will terminate in two ways: (1) a concrete adversarial is found, and (2) the property is verified as safe.
 
+To maximize the performance of ReluVal, I would recommend to quickly run check adv mode first. If there are no adversarial examples located, then run the regular modes.
+
 ### Example
 
 Here is an example for running ReluVal:

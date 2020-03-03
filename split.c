@@ -932,7 +932,13 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
     pthread_mutex_lock(&lock);
 
     if ((depth <= avg_depth - MIN_DEPTH_PER_THREAD) &&\
-            (count<=MAX_THREAD)) {
+            (count+2 <= MAX_THREAD)) {
+
+        count += 2;
+        thread_tot_cnt += 2;
+        if (count > thread_simul_cnt) {
+            thread_simul_cnt = count;
+        }
 
     pthread_mutex_unlock(&lock);
 
@@ -953,29 +959,9 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
         pthread_create(&workers1, NULL, direct_run_check_thread, &args1);
 
-    pthread_mutex_lock(&lock);
-
-        count++;
-        thread_tot_cnt++;
-        if (count > thread_simul_cnt) {
-            thread_simul_cnt = count;
-        }
-
-    pthread_mutex_unlock(&lock);
-
         //printf ( "pid1: %ld start %d \n", syscall(SYS_gettid), count);
 
         pthread_create(&workers2, NULL, direct_run_check_thread, &args2);
-
-    pthread_mutex_lock(&lock);
-
-        count++;
-        thread_tot_cnt++;
-        if (count > thread_simul_cnt) {
-            thread_simul_cnt = count;
-        }
-
-    pthread_mutex_unlock(&lock);
 
         //printf ( "pid2: %ld start %d \n", syscall(SYS_gettid), count);
 

@@ -57,6 +57,9 @@ pthread_mutex_t lock;
 /* Active threads number */
 extern int count;
 
+/* Max simultaneous threads */
+extern int thread_simul_cnt;
+
 
 /*
  * Define the argument structure of main function

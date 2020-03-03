@@ -252,7 +252,9 @@ int main( int argc, char *argv[])
     }
 
     
-    printf("time: %f \n\n\n", time_spent);
+    printf("time: %f \n", time_spent);
+    printf("max simultaneous threads: %d\n", thread_simul_cnt);
+    printf("\n\n");
 
     destroy_network(nnet);
     free(feature_range);

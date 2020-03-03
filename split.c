@@ -20,6 +20,7 @@ int NEED_FOR_ONE_RUN = 0;
 int input_depth = 0;
 int adv_found = 0;
 int count = 0;
+int thread_simul_cnt = 0;
 int thread_tot_cnt  = 0;
 int smear_cnt = 0;
 
@@ -956,6 +957,9 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
         count++;
         thread_tot_cnt++;
+        if (count > thread_simul_cnt) {
+            thread_simul_cnt = count;
+        }
 
     pthread_mutex_unlock(&lock);
 
@@ -967,6 +971,9 @@ int split_interval(struct NNet *nnet, struct Interval *input,\
 
         count++;
         thread_tot_cnt++;
+        if (count > thread_simul_cnt) {
+            thread_simul_cnt = count;
+        }
 
     pthread_mutex_unlock(&lock);
 
